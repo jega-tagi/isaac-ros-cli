@@ -1,0 +1,19 @@
+isaac-ros-cli (1.0.2-1) noble; urgency=high
+
+  * Fix local-only build behavior using `--build-local` flag
+
+ -- Isaac ROS Maintainers <isaac-ros-maintainers@nvidia.com>  Wed, 5 Nov 2025 12:00:00 +0000
+
+isaac-ros-cli (1.0.1-1) noble; urgency=high
+
+  * Security update for base Docker container
+
+ -- Isaac ROS Maintainers <isaac-ros-maintainers@nvidia.com>  Wed, 29 Oct 2025 12:00:00 +0000
+
+isaac-ros-cli (1.0.0-1) noble; urgency=low
+
+  * Initial release for Ubuntu 24.04 (noble)
+  * Isaac ROS CLI tool for managing development environments
+  * Support for Docker containers
+
+ -- Isaac ROS Maintainers <isaac-ros-maintainers@nvidia.com>  Fri, 24 Oct 2025 12:00:00 +0000

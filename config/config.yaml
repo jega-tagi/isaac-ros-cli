@@ -1,0 +1,19 @@
+version: 1
+
+environment:
+  mode: uninitialized
+
+docker:
+  image:
+    base_image_keys: 
+      - noble
+      - ros2_jazzy
+    additional_image_keys: []
+
+  run:
+    container_name: isaac_ros_dev_container
+    entrypoint: /usr/local/bin/scripts/workspace-entrypoint.sh
+    workdir: "/workspaces/isaac_ros-dev"
+    platform: auto
+    use_cached_build_image: false
+

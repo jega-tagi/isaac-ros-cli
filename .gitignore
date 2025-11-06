@@ -1,0 +1,8 @@
+# Debian packaging artifacts
+debian/.debhelper/
+debian/*.debhelper
+debian/isaac-ros-cli/
+debian/*.substvars
+debian/*.debhelper.log
+debian/*-stamp
+debian/files
