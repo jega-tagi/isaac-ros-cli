@@ -9,6 +9,7 @@ docker:
       - noble
       - ros2_jazzy
     additional_image_keys: []
+    custom_image: ""  # Set to your custom image name (e.g., "my_isaac_ros:custom") to use instead of baseline
 
   run:
     container_name: isaac_ros_dev_container
