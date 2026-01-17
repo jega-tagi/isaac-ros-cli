@@ -31,7 +31,7 @@ isaac-ros activate
 # 4. Commit changes from inside container (in another terminal)
 # Open a new terminal on your host and run:
 # The custom image feature allows you to save your installed packages and modifications, while maintaining the ability to # revert to the baseline image.
-docker commit isaac_ros_dev_container my_isaac_ros:custom
+isaac-ros commit my_isaac_ros:custom --set-default
 
 # 5. Exit container
 exit

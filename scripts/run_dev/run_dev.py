@@ -484,6 +484,12 @@ def main():
     args = parse_args()
     config_path = get_isaac_ros_common_config_path()
     config = get_isaac_ros_common_config_values(config_path)
+    
+    # Load isaac-ros-cli config for custom_image setting
+    from isaac_ros_cli.config_loader import load_config
+    cli_config = load_config()
+    custom_image = cli_config.get('docker', {}).get('image', {}).get('custom_image', '')
+    
     platform = args.platform
 
     file_arch = (
@@ -518,7 +524,25 @@ def main():
     print(env_list)
 
     cached_image_name = "cached_isaac_run_dev_image_local:latest"
-    base_name = get_image_name(cache_from_registry_name, env_list, file_arch, include_hash=True)
+    
+    # Check if custom image is specified in config
+    if custom_image:
+        print(f"Using custom image from config: {custom_image}")
+        # Verify custom image exists
+        custom_image_exists = subprocess.run(
+            ["docker", "image", "inspect", custom_image],
+            capture_output=True
+        ).returncode == 0
+        
+        if not custom_image_exists:
+            print(f"Error: Custom image '{custom_image}' not found.")
+            print("Please commit your container first or remove custom_image from config.")
+            sys.exit(1)
+        
+        base_name = custom_image
+    else:
+        base_name = get_image_name(cache_from_registry_name, env_list, file_arch, include_hash=True)
+    
     if args.use_cached_build_image:
         # Check if cached image exists before using it
 
@@ -534,7 +558,7 @@ def main():
             sys.exit(1)
         base_name = cached_image_name
 
-    elif not make_docker_image_available(base_name, cached_image_name):
+    elif not custom_image and not make_docker_image_available(base_name, cached_image_name):
         if not (args.build or args.build_local):
             print(f"Error: Docker image {base_name} not found.")
             print("Use --build to build remotely or --build-local to build locally.")
